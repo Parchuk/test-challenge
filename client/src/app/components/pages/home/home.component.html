@@ -1,0 +1,85 @@
+<div class="container home-page">
+  <h1 class="mt-4 mb-2 text-center">Table of Users</h1>
+  <a routerLink="/add-user" class="m-2">Add new user</a>
+  <table class="table table-striped user-table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th
+          (click)="filterUsers($event)"
+          [ngClass]="setCssStyle('name')"
+          scope="col"
+        >
+          Name
+        </th>
+        <th
+          (click)="filterUsers($event)"
+          [ngClass]="setCssStyle('surname')"
+          scope="col"
+        >
+          Surname
+        </th>
+        <th
+          (click)="filterUsers($event)"
+          [ngClass]="setCssStyle('dateOfBirthday')"
+          scope="col"
+        >
+          Date of birthday
+        </th>
+        <th
+          (click)="filterUsers($event)"
+          [ngClass]="setCssStyle('phone')"
+          scope="col"
+        >
+          Phone
+        </th>
+        <th
+          (click)="filterUsers($event)"
+          [ngClass]="setCssStyle('email')"
+          scope="col"
+        >
+          Email
+        </th>
+        <th
+          (click)="filterUsers($event)"
+          [ngClass]="setCssStyle('lastModified')"
+          scope="col"
+        >
+          Last modified
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="isLoading; else elseUsersList">
+        <td colspan="7" class="text-center">
+          <app-loader></app-loader>
+        </td>
+      </tr>
+      <ng-template #elseUsersList>
+        <ng-container *ngIf="users.length; else elseNoUsers">
+          <tr
+            (refreshDataEvent)="getUsersList()"
+            *ngFor="let user of users; index as i"
+            app-user-item
+            [user]="user"
+            [i]="i"
+          ></tr>
+        </ng-container>
+
+        <ng-template #elseNoUsers>
+          <tr>
+            <td colspan="7" class="text-center"><h2>Users not found!!!</h2></td>
+          </tr>
+        </ng-template>
+      </ng-template>
+    </tbody>
+  </table>
+  <ngb-pagination
+    *ngIf="users.length"
+    (pageChange)="pageChange($event)"
+    [collectionSize]="collectionSize"
+    [pageSize]="urlParams.limit"
+    [(page)]="urlParams.page"
+    [boundaryLinks]="true"
+  ></ngb-pagination>
+</div>

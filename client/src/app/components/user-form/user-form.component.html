@@ -1,0 +1,137 @@
+<form class="add-user__form" [formGroup]="userForm">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input
+      id="name"
+      type="text"
+      class="form-control"
+      aria-describedby="nameHelp"
+      placeholder="Name"
+      name="name"
+      [(ngModel)]="name"
+      formControlName="name"
+      required
+    />
+    <div
+      *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="userName.errors.required">Name is required.</div>
+      <div *ngIf="userName.errors.minlength">
+        Name must be at least 3 characters long.
+      </div>
+      <div *ngIf="userName.errors.maxlength">
+        Name must be max 60 characters long.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="surname">Surname</label>
+    <input
+      type="text"
+      class="form-control"
+      id="surname"
+      placeholder="Surname"
+      name="surname"
+      [(ngModel)]="surname"
+      formControlName="surname"
+      required
+    />
+    <div
+      *ngIf="userSurname.invalid && (userSurname.dirty || userSurname.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="userSurname.errors.required">Surname is required.</div>
+      <div *ngIf="userSurname.errors.minlength">
+        Surname must be at least 3 characters long.
+      </div>
+      <div *ngIf="userSurname.errors.maxlength">
+        Surname must be max 60 characters long.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="dateOfBirthday">Date of birthday</label>
+    <input
+      type="date"
+      class="form-control"
+      id="dateOfBirthday"
+      placeholder="Date of birthday"
+      name="dateOfBirthday"
+      [(ngModel)]="dateOfBirthday"
+      formControlName="dateOfBirthday"
+      required
+    />
+    <div
+      *ngIf="
+        userDateOfBirthday.invalid &&
+        (userDateOfBirthday.dirty || userDateOfBirthday.touched)
+      "
+      class="alert alert-danger"
+    >
+      <div *ngIf="userDateOfBirthday.errors.required">
+        Date Of Birthday is required.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input
+      type="text"
+      class="form-control"
+      id="phone"
+      placeholder="Phone"
+      name="phone"
+      [(ngModel)]="phone"
+      formControlName="phone"
+      required
+    />
+    <div
+      *ngIf="userPhone.invalid && (userPhone.dirty || userPhone.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="userPhone.errors.required">Phone is required.</div>
+      <div *ngIf="userPhone.errors.pattern">
+        Phone must have format 0xxyyyyyyy
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="Email"
+      name="email"
+      [(ngModel)]="email"
+      formControlName="email"
+      required
+    />
+    <div
+      *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched)"
+      class="alert alert-danger"
+    >
+      <div *ngIf="userEmail.errors.required">Email is required.</div>
+      <div *ngIf="userEmail.errors.email">Email must be correct</div>
+    </div>
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    (click)="submitData($event)"
+    [disabled]="
+      !(
+        userName.valid &&
+        userSurname.valid &&
+        userDateOfBirthday.valid &&
+        userPhone.valid &&
+        userEmail.valid
+      )
+    "
+  >
+    Add new user
+  </button>
+  <hr />
+  <a routerLink="/" class="m-2">Back to home page</a>
+</form>

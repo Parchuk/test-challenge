@@ -1,0 +1,17 @@
+<div class="container loader-wrapper" *ngIf="isLoading; else elseNoUser">
+  <app-loader></app-loader>
+</div>
+
+<ng-template #elseNoUser>
+  <div class="container pt-4">
+    <ngb-alert
+      #selfClosingAlert
+      *ngIf="serverMessage"
+      [type]="typeMessage"
+      (closed)="serverMessage = ''"
+      >{{ serverMessage }}
+    </ngb-alert>
+    <h2>Add new user</h2>
+    <app-user-form (submitUserChangesEvent)="addUser($event)"></app-user-form>
+  </div>
+</ng-template>

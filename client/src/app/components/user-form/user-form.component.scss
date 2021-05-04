@@ -1,0 +1,22 @@
+.add-user__form label {
+  position: relative;
+  &::after {
+    right: -10px;
+    position: absolute;
+    content: "*";
+    color: red;
+  }
+}
+
+input.ng-dirty {
+  border: 1px solid red;
+  border-left: 5px solid red;
+}
+
+input.ng-valid {
+  border: 1px solid green;
+  border-left: 5px solid green;
+}
+.alert {
+  padding: 5px;
+}
